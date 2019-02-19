@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name=viewport content="width=device-width,initial-scale=1">
+  <title>{{title}}</title>
+  <link href="{{css}}" rel="stylesheet">
+</head>
+
+<body>
+    {{> navbar}}
+    <div class="container-fluid">
+        <div class="row flex-center">
+            <div class="col">
+              <h2>{{pages.new.title}}</h2>
+              <p>
+                {{pages.new.intro}}
+              </p>
+            </div>
+        </div>
+        <div class="rowr">
+            <div class="col col-4 offset-4">
+                <form action="INSERT_API_URL">
+                    <div class="form-group">
+                        <label for="exampleInputEmail1">URL</label>
+                        <input class="form-control" name="url" type="url" id="url"  autocomplete="off">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script src="{{js}}"></script>
+</body>
+</html>

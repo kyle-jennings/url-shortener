@@ -1,0 +1,47 @@
+{
+  "title" : "KJD - URL shortener",
+  "css": "/assets/css/site.min.css",
+  "js": "/assets/js/site.min.js",
+  "endpoints": {},
+  "s3Configs": {
+    "bucketName": "kjd-urls",
+    "region": "us-east-1",
+    "base_url": null
+  },
+  "navbarLinks": [
+    {
+        "text": "home",
+        "url": "/"
+    },
+    {
+        "text": "new",
+        "url": "/new.html"
+    },
+    {
+        "text": "edit",
+        "url": "/edit.html"
+    },
+    {
+        "text": "list",
+        "url": "/list.html"
+    }
+  ],
+  "pages": {
+    "index": {
+        "title": "Index",
+        "intro": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac turpis aliquam, pellentesque sem id, luctus nisi. Nulla justo tellus, vulputate suscipit posuere vitae, tincidunt vel mauris. Vivamus ut rhoncus orci, aliquet lacinia augue. Nullam ullamcorper pretium dui, vitae gravida nunc suscipit sit amet. Proin malesuada odio vel efficitur congue. Proin mauris magna, scelerisque at imperdiet vitae, porta vel nisi. Integer gravida egestas scelerisque. Vestibulum fringilla lobortis diam lacinia hendrerit. Quisque semper sapien tincidunt dignissim viverra. Nullam ac urna ac turpis mattis aliquet. Nullam lobortis porttitor interdum. Etiam urna justo, ornare sit amet pellentesque vitae, hendrerit posuere odio."
+    },
+    "edit": {
+        "title": "edit",
+        "intro": "This is a proof of concept. S3 as a database and Lambda@Edge for authentication."
+    },
+    "new": {
+        "title": "new",
+        "intro": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac turpis aliquam, pellentesque sem id, luctus nisi. Nulla justo tellus, vulputate suscipit posuere vitae, tincidunt vel mauris. Vivamus ut rhoncus orci, aliquet lacinia augue. Nullam ullamcorper pretium dui, vitae gravida nunc suscipit sit amet. Proin malesuada odio vel efficitur congue. Proin mauris magna, scelerisque at imperdiet vitae, porta vel nisi. Integer gravida egestas scelerisque. Vestibulum fringilla lobortis diam lacinia hendrerit. Quisque semper sapien tincidunt dignissim viverra. Nullam ac urna ac turpis mattis aliquet. Nullam lobortis porttitor interdum. Etiam urna justo, ornare sit amet pellentesque vitae, hendrerit posuere odio."
+    },
+    "list": {
+        "title": "list Page",
+        "intro": "Ahh I see you knew the password, good show!"
+    }
+  }
+}

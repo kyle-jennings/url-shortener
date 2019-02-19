@@ -1,0 +1,9 @@
+{
+  "name": "serverless-url-shortener",
+  "version": "1.0.0",
+  "author": "Kyle Jennings",
+  "license": "MIT",
+  "dependencies": {
+    "aws-sdk": "^2.112.0"
+  }
+}

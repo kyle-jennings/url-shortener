@@ -1,0 +1,45 @@
+{
+  "name": "serverless-url-shortener",
+  "version": "1.0.0",
+  "author": "Kyle Jennings",
+  "license": "MIT",
+  "scripts": {
+    "lambda::edit": "cp lambda/edit.js lambda/index.js && zip -X -r ./edit.zip lambda/* && rm lambda/index.js",
+    "lambda::delete": "cp lambda/delete.js lambda/index.js && zip -X -r ./delete.zip lambda/* && rm lambda/index.js",
+    "lambda::list": "cp lambda/list.js lambda/index.js && zip -X -r ./list.zip lambda/* && rm lambda/index.js",
+    "lambda::new": "cp lambda/new.js lambda/index.js && zip -X -r ./new.zip lambda/* && rm lambda/index.js"
+  },
+  "dependencies": {
+    "bootstrap": "^4.3.1"
+  },
+  "devDependencies": {
+    "aliasify": "2.0.0",
+    "autoprefixer": "6.3.6",
+    "browser-sync": "2.12.2",
+    "browserify": "9.0.4",
+    "css-mqpacker": "4.0.1",
+    "del": "2.2.0",
+    "font-awesome": "4.7.0",
+    "gulp": "3.9.1",
+    "gulp-bower": "0.0.10",
+    "gulp-concat": "2.6.0",
+    "gulp-cssnano": "2.1.1",
+    "gulp-compile-handlebars": "0.6.1",
+    "gulp-imagemin": "2.3.0",
+    "gulp-jshint": "2.0.0",
+    "gulp-notify": "2.2.0",
+    "gulp-minify": "0.0.7 ",
+    "gulp-plumber": "1.1.0",
+    "gulp-postcss": "6.1.0",
+    "gulp-rename": "1.2.2",
+    "gulp-sass": "3.1.0",
+    "gulp-sourcemaps": "1.6.0",
+    "gulp-util": "3.0.7",
+    "gulp-watch": "4.3.5",
+    "gulp-wp-pot": "2.0.4",
+    "imagemin-pngquant": "4.2.2",
+    "normalize.css": "7.0.0",
+    "vinyl-transform": "1.0.0",
+    "vinyl-source-stream": "1.1.0"
+  }
+}
