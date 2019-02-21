@@ -7,7 +7,7 @@ const AWS        = require('aws-sdk')
 const S3         = new AWS.S3()
 
 
-module.exports.handle = (event, context, callback) => {
+exports.handler = (event, context, callback) => {
   let longUrl = JSON.parse(event.body).url || ''
   validate(longUrl)
     .then(function () {

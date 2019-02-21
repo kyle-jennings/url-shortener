@@ -2,7 +2,7 @@
   "title" : "KJD - URL shortener",
   "css": "/assets/css/site.min.css",
   "js": "/assets/js/site.min.js",
-  "endpoints": {},
+  "endpoint": "https://ns0jozzutk.execute-api.us-east-1.amazonaws.com/dev",
   "s3Configs": {
     "bucketName": "kjd-urls",
     "region": "us-east-1",

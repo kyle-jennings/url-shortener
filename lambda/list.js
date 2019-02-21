@@ -3,39 +3,91 @@
 const url                  = require('url')
 const bucketName           = 'kjd-urls';
 const AWS                  = require('aws-sdk')
-AWS.config                 = new AWS.Config();
-AWS.config.accessKeyId     = 'AKIAIXW6EXTYLOJLLGQQ';
-AWS.config.secretAccessKey = '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';
-AWS.config.region          = 'us-east-1';
 const S3                   = new AWS.S3();
 
 exports.handler = (event, context, callback) => {
 
-  let lastObject  = null;
+  let marker = null;
+  if( typeof event.queryStringParameters !== "undefined" && event.queryStringParameters ) {
+    marker = event.queryStringParameters.marker || null;
+  }
+  
   S3.listObjects({
     Bucket: bucketName,
     MaxKeys: 10,
-    Marker: lastObject,
+    Marker: marker,
   })
   .promise()
+  .then(collectRedirects)
   .then(returnResults)
-  .catch(returnError);
+  .catch(returnError)
+  .then(function (response) {
+    callback(null, response);
+  });
 
 }
 
 function returnResults(results) {
   results = results.Contents;
-
-
-  let response = {
-    results: results,
-    count: results.length,
-    marker: results[results.length -1].Key,
-  }
-
-  console.log(response);
+  return Promise.resolve(
+  {
+    statusCode: 200,
+    headers: { 
+      "Access-Control-Allow-Origin": "*" 
+    },
+    body: JSON.stringify({
+      results: results,
+      count: results.length,
+      marker: results[results.length -1].Key,
+    }),
+  });
 }
 
 function returnError(err) {
   console.log(err);
 }
+
+
+function collectRedirects(response){
+
+  console.log(response);
+
+
+  response.Contents.forEach(function(e,i,a){
+    S3.getObject({
+      Key: e.Key,
+      Bucket: bucketName
+    }).promise()
+    .then(function(result){
+      response.Contents.fake = "NEWS";
+    })
+    .catch();
+
+  });
+
+  return Promise.resolve(response);
+}
+
+
+  S3.listObjects({
+    Bucket: bucketName,
+    MaxKeys: 10,
+  })
+  .promise()
+  .then(collectRedirects)
+  .then(returnResults)
+  .catch(returnError)
+  .then(function (response) {
+    console.log('done');
+  });
+  // results.forEach(function(e,i,a){
+  //   S3.getObject({
+  //     Key: e.Key,
+  //     Bucket: bucketName
+  //   }).promise()
+  //   .then(
+  //     console.log(result)
+  //   )
+  //   .catch();
+
+  // });

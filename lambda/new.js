@@ -7,7 +7,7 @@ const S3 = new AWS.S3()
 
 const config = require('../config.json')
 
-module.exports.handle = (event, context, callback) => {
+exports.handler = (event, context, callback) => {
   let longUrl = JSON.parse(event.body).url || ''
   validate(longUrl)
     .then(function () {

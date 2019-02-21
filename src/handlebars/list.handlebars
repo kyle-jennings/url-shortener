@@ -8,7 +8,12 @@
 </head>
 <body>
     {{> navbar}}
-
+    <li id="url-alias-template" class="entry hidden">
+      <span class="entry__alias"></span>
+      <span class="entry__redirect"></span>
+      <a class="entry__edit" href="#">Edit</a>
+      <a class="entry__delete" href="#">Delete</a>
+    </li>
     <div class="container-fluid">
         <div class="row flex-center">
             <div class="col">
@@ -16,13 +21,9 @@
               <p>
                 {{pages.list.intro}}
               </p>
-              <ul class="js--items">
-                <li>
-                  Name
-                  <a class="edit" href="#">Edit</a>
-                  <a class="delete" href="#">Delete</a>
-                </li>
+              <ul data-endpoint="{{endpoint}}/list" data-marker="" class="js--items">
               </ul>
+              <button class="js--loadmore">Load More</button>
             </div>
         </div>
     </div>
