@@ -54,18 +54,23 @@ function collectRedirects(response){
 
 
   response.Contents.forEach(function(e,i,a){
-    S3.getObject({
-      Key: e.Key,
-      Bucket: bucketName
-    }).promise()
-    .then(function(result){
-      response.Contents.fake = "NEWS";
-    })
-    .catch();
-
+    getObjectRedirect(key);
   });
 
   return Promise.resolve(response);
+}
+
+
+function getObjectRedirect(key) {
+  return S3.getObject({
+    Key: key,
+    Bucket: bucketName
+  }).promise()
+  .then(function(result){
+    console.log(result);
+    Promise.resolve(result);
+  })
+  .catch();
 }
 
 
