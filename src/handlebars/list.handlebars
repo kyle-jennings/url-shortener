@@ -8,22 +8,10 @@
 </head>
 <body>
     {{> navbar}}
-    <li id="url-alias-template" class="entry hidden">
-      <span class="entry__alias"></span>
-      <span class="entry__redirect"></span>
-      <a class="entry__edit" href="#">Edit</a>
-      <a class="entry__delete" href="#">Delete</a>
-    </li>
     <div class="container-fluid">
         <div class="row flex-center">
-            <div class="col">
-              <h2>{{pages.list.title}}</h2>
-              <p>
-                {{pages.list.intro}}
-              </p>
-              <ul data-endpoint="{{endpoint}}/list" data-marker="" class="js--items">
-              </ul>
-              <button class="js--loadmore">Load More</button>
+            <div id="vue-app" class="col-8">
+                <alias-list v-bind:endpoint="'{{endpoint}}'"  />
             </div>
         </div>
     </div>

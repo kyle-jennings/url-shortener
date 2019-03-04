@@ -28,7 +28,7 @@ exports.handler = (event, context, callback) => {
 }
 
 function returnResults(results) {
-  results = results.Contents;
+
   return Promise.resolve(
   {
     statusCode: 200,
@@ -50,49 +50,20 @@ function returnError(err) {
 
 function collectRedirects(response){
 
-  console.log(response);
-
-
-  response.Contents.forEach(function(e,i,a){
-    getObjectRedirect(key);
+  var promises = response.Contents.map(function(object){
+    return S3.getObject({
+      Key: object.Key,
+      Bucket: bucketName
+    })
+    .promise()
+    .then(function(result){
+      object.WebsiteRedirectLocation = result.WebsiteRedirectLocation;
+      return object;
+    });
   });
-
-  return Promise.resolve(response);
-}
-
-
-function getObjectRedirect(key) {
-  return S3.getObject({
-    Key: key,
-    Bucket: bucketName
-  }).promise()
-  .then(function(result){
-    console.log(result);
-    Promise.resolve(result);
-  })
-  .catch();
-}
-
-
-  S3.listObjects({
-    Bucket: bucketName,
-    MaxKeys: 10,
-  })
-  .promise()
-  .then(collectRedirects)
-  .then(returnResults)
-  .catch(returnError)
-  .then(function (response) {
-    console.log('done');
+  
+  return Promise.all(promises)
+  .then(function(values) {
+    return Promise.resolve(values);
   });
-  // results.forEach(function(e,i,a){
-  //   S3.getObject({
-  //     Key: e.Key,
-  //     Bucket: bucketName
-  //   }).promise()
-  //   .then(
-  //     console.log(result)
-  //   )
-  //   .catch();
-
-  // });
+}

@@ -19,14 +19,8 @@
             </div>
         </div>
         <div class="rowr">
-            <div class="col col-4 offset-4">
-                <form action="INSERT_API_URL">
-                    <div class="form-group">
-                        <label for="exampleInputEmail1">URL</label>
-                        <input class="form-control" name="url" type="url" id="url"  autocomplete="off">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
+            <div id="vue-app"  class="col col-4 offset-4">
+                <new-alias v-bind:endpoint="'{{endpoint}}/new'" />
             </div>
         </div>
     </div>
