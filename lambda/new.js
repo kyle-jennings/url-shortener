@@ -7,7 +7,7 @@ const S3         = new AWS.S3();
 const baseURL    = null;
 
 exports.handler = (event, context, callback) => {
-
+  context.callbackWaitsForEmptyEventLoop = false;
   let body        = JSON.parse(event.body);
   let longUrl     = body.url || '';
   let customAlias = body.customAlias || null;

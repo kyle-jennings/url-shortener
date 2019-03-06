@@ -4,9 +4,10 @@
   "author": "Kyle Jennings",
   "license": "MIT",
   "scripts": {
-    "lambda::list": "cd lambda && zip -X -r ../list.zip .",
-    "lambda::new": "cd lambda && zip -X -r ../new.zip .",
-    "lambda::delete": "cd lambda && zip -X -r ../delete.zip ."
+    "lambda::list": "rm *.zip && cd lambda && zip -X -r ../list.zip .",
+    "lambda::new": "rm *.zip && cd lambda && zip -X -r ../new.zip .",
+    "lambda::delete": "rm *.zip && cd lambda && zip -X -r ../delete.zip .",
+    "lambda::edit": "rm *.zip && cd lambda && zip -X -r ../edit.zip ."
   },
   "dependencies": {
     "bootstrap": "^4.3.1",

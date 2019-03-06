@@ -8,26 +8,33 @@ const S3         = new AWS.S3()
 
 
 exports.handler = (event, context, callback) => {
-  let longUrl = JSON.parse(event.body).url || ''
+  context.callbackWaitsForEmptyEventLoop = false;
+  let body        = JSON.parse(event.body);
+  let longUrl     = body.url || null;
+  let key         = body.key || null;
+
   validate(longUrl)
-    .then(function () {
-      return getPath()
-    })
-    .then(function (path) {
-      let redirect = buildRedirect(path, longUrl)
-      return saveRedirect(redirect)
-    })
-    .then(function (path) {
-      let response = buildResponse(200, 'URL successfully shortened', path)
-      return Promise.resolve(response)
-    })
-    .catch(function (err) {
-      let response = buildResponse(err.statusCode, err.message)
-      return Promise.resolve(response)
-    })
-    .then(function (response) {
-      callback(null, response)
-    })
+  .then(function(){
+    return keyExists(bucketName, key)
+      .then(() => Promise.resolve(true))
+      .catch((err) => Promise.reject(err));
+  })
+  .catch(function(err){
+    console.log('key was not found - abort!');
+    callback(null, buildResponse(err.statusCode, err.message));
+  })
+  .then(function() {
+    console.log('updating object!', key, longUrl);
+    return updateMeta(key, longUrl);
+  })
+  .then(function(){
+    console.log('update successfull!');
+    callback(null, buildResponse(200, key + ' updated.', longUrl));
+  })
+  .catch(function(err){
+    console.log('update failed!');
+    callback(null, buildResponse(err.statusCode, err.message));
+  });
 }
 
 function validate (longUrl) {
@@ -49,68 +56,23 @@ function validate (longUrl) {
   return Promise.resolve(longUrl)
 }
 
-function getPath () {
-  return new Promise(function (resolve, reject) {
-    let path = generatePath()
-    isPathFree(path)
-      .then(function (isFree) {
-        return isFree ? resolve(path) : resolve(getPath())
-      })
-  })
+
+function updateMeta (key, longUrl) {
+  return S3.putObject({
+      'Bucket': bucketName,
+      'Key': key,
+      'WebsiteRedirectLocation': longUrl 
+    })
+    .promise()
+    .then((data) => Promise.resolve(data))
+    .catch((err) => Promise.reject(err) );
 }
 
-function generatePath (path = '') {
-  let characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'
-  let position = Math.floor(Math.random() * characters.length)
-  let character = characters.charAt(position)
-
-  if (path.length === 7) {
-    return path
-  }
-
-  return generatePath(path + character)
-}
-
-function isPathFree (path) {
-  return S3.headObject(buildRedirect(path)).promise()
-    .then(() => Promise.resolve(false))
-    .catch((err) => err.code == 'NotFound' ? Promise.resolve(true) : Promise.reject(err))
-}
-
-function saveRedirect (redirect) {
-  return S3.putObject(redirect).promise()
-    .then(() => Promise.resolve(redirect['Key']))
-}
-
-function buildRedirect (path, longUrl = false) {
-  let redirect = {
-    'Bucket': bucketName,
-    'Key': path,
-  }
-
-  if (longUrl) {
-    redirect['WebsiteRedirectLocation'] = longUrl
-  }
-
-  return redirect
-}
-
-function buildRedirectUrl (path) {
-  let baseUrl = 'https://' + bucketName + '.s3.' + region + '.amazonaws.com/'
-  
-  if ('BASE_URL' in config && config['BASE_URL'] !== '') {
-    baseUrl = config['BASE_URL']
-  }
-
-  return baseUrl + path
-}
-
-function buildResponse (statusCode, message, path = false) {
+function buildResponse (statusCode, message, url = false) {
   let body = { message }
 
-  if (path) {
-    body['path'] = path
-    body['url'] = buildRedirectUrl(path)
+  if (url) {
+    body['url'] = url
   }
 
   return {
@@ -120,4 +82,20 @@ function buildResponse (statusCode, message, path = false) {
     statusCode: statusCode,
     body: JSON.stringify(body)
   }
+}
+
+function keyExists(bucketName, key) {
+  return S3.headObject({
+    Bucket: bucketName,
+    Key: key
+  })
+  .promise()
+  .then(function(data){ // key found
+    console.log('object was found!');
+    return Promise.resolve(true);
+  })
+  .catch(function(err){ // key not found or error
+    console.log('object not found!');
+    return Promise.reject(err);
+  });
 }

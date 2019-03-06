@@ -22,7 +22,7 @@ exports.handler = (event, context, callback) => {
     return new Promise(function (resolve, reject) {
       isPathFree(bucketName, key)
       .then(function (isFree) {
-        return isFree ? resolve(true) : reject();
+        return isFree ? resolve(true) : reject(buildResponse(404, key + ' object was found! deletion failed!'));
       });
     });
   })
