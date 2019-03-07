@@ -1,3 +1,4 @@
+require('./components/search.js');
 require('./components/alias-list.js');
 require('./components/list-item.js');
 require('./components/new-alias.js');

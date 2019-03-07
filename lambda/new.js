@@ -134,8 +134,9 @@ function buildResponse (statusCode, message, path = false ) {
   let body = { message };
 
   if (path) {
-    body['path'] = path
-    body['url'] = buildRedirectUrl(path)
+    body['status'] = 'success';
+    body['path']   = path
+    body['url']    = buildRedirectUrl(path)
   };
 
   return {

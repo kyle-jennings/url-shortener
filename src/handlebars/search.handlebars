@@ -12,10 +12,15 @@
     <div class="container-fluid">
         <div class="row flex-center">
             <div class="col">
-              <h2>{{pages.edit.title}}</h2>
+              <h2>{{pages.search.title}}</h2>
               <p>
-                {{pages.edit.intro}}
+                {{pages.search.intro}}
               </p>
+            </div>
+        </div>
+        <div class="row">
+            <div id="vue-app"  class="col col-8 offset-2">
+                <Search v-bind:endpoint="'{{endpoint}}/search'" />
             </div>
         </div>
     </div>

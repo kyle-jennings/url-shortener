@@ -4,7 +4,8 @@ var NewAlias = Vue.component('newAlias', {
     return {
       url: null,
       customAliasToggle: false,
-      customAlias: null
+      customAlias: null,
+      newShortCode: null,
     }
   },
   computed: {
@@ -19,16 +20,16 @@ var NewAlias = Vue.component('newAlias', {
   methods: {
     createdNew: function(response){
       if (response.target.readyState !== 4 || response.target.status !== 200) {
-        console.log(JSON.parse(response.target.response));
         return false;
       }
       var response = JSON.parse(response.target.response);
-      console.log(response);
+      if(response.url) {
+        this.newShortCode = response.url;
+      }
     },
     submit: function(){
       var xhttp = new XMLHttpRequest();
       var data  = JSON.stringify({ url: this.url, customAlias: this.ifCustomAlias });
-      console.log(data);
       xhttp.onload = this.createdNew;
       xhttp.open("POST", this.endpoint, true);
       xhttp.send(data);
@@ -36,6 +37,7 @@ var NewAlias = Vue.component('newAlias', {
   },
   template: '\
     <form>\
+      <a v-bind:href="newShortCode" class="js-new-shortcode" v-if="newShortCode">{{newShortCode}}</a>\
       <div class="form-group">\
           <label for="url">URL</label>\
           <input class="form-control" name="url" type="url" v-model="url" autocomplete="off">\

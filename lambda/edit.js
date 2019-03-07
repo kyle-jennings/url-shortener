@@ -72,7 +72,8 @@ function buildResponse (statusCode, message, url = false) {
   let body = { message }
 
   if (url) {
-    body['url'] = url
+    body['status'] = 'success';
+    body['url']    = url
   }
 
   return {

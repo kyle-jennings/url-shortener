@@ -18,8 +18,8 @@
         "url": "/new.html"
     },
     {
-        "text": "edit",
-        "url": "/edit.html"
+        "text": "search",
+        "url": "/search.html"
     },
     {
         "text": "list",
@@ -29,15 +29,15 @@
   "pages": {
     "index": {
         "title": "Index",
-        "intro": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac turpis aliquam, pellentesque sem id, luctus nisi. Nulla justo tellus, vulputate suscipit posuere vitae, tincidunt vel mauris. Vivamus ut rhoncus orci, aliquet lacinia augue. Nullam ullamcorper pretium dui, vitae gravida nunc suscipit sit amet. Proin malesuada odio vel efficitur congue. Proin mauris magna, scelerisque at imperdiet vitae, porta vel nisi. Integer gravida egestas scelerisque. Vestibulum fringilla lobortis diam lacinia hendrerit. Quisque semper sapien tincidunt dignissim viverra. Nullam ac urna ac turpis mattis aliquet. Nullam lobortis porttitor interdum. Etiam urna justo, ornare sit amet pellentesque vitae, hendrerit posuere odio."
+        "intro": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac turpis aliquam, pellentesque sem id, luctus nisi. Nulla justo tellus."
     },
-    "edit": {
-        "title": "edit",
+    "search": {
+        "title": "search",
         "intro": "This is a proof of concept. S3 as a database and Lambda@Edge for authentication."
     },
     "new": {
         "title": "new",
-        "intro": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac turpis aliquam, pellentesque sem id, luctus nisi. Nulla justo tellus, vulputate suscipit posuere vitae, tincidunt vel mauris. Vivamus ut rhoncus orci, aliquet lacinia augue. Nullam ullamcorper pretium dui, vitae gravida nunc suscipit sit amet. Proin malesuada odio vel efficitur congue. Proin mauris magna, scelerisque at imperdiet vitae, porta vel nisi. Integer gravida egestas scelerisque. Vestibulum fringilla lobortis diam lacinia hendrerit. Quisque semper sapien tincidunt dignissim viverra. Nullam ac urna ac turpis mattis aliquet. Nullam lobortis porttitor interdum. Etiam urna justo, ornare sit amet pellentesque vitae, hendrerit posuere odio."
+        "intro": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ac turpis aliquam, pellentesque sem id, luctus nisi. Nulla justo tellus, vulputate suscipit posuere vitae."
     },
     "list": {
         "title": "list Page",
