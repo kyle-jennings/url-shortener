@@ -13,14 +13,44 @@ exports.handler = (event, context, callback) => {
   let key  = body.key || null;
 
   if (key) {
-    searchForKey(key, callback)
-  } else {
-    searchForURL(url, callback);
+    searchForKey(key)
+    .then(function(data){
+      callback(null, returnResults(data))
+    })
+    .catch(function(err){
+      callback(null, returnErrorResp(err))
+    });
   }
 
+  if (url) {
+    searchForURL(url)
+    .then(function(data){
+      callback(null, returnResults(data))
+    })
+    .catch(function(err){
+      callback(null, returnErrorResp(err))
+    });
+  }
+
+  callback(null, {
+   statusCode: 500,
+   headers: { 
+      "Access-Control-Allow-Origin": "*" 
+    },
+    body: JSON.stringify({
+      status: 'fail',
+      results: 'URL or Key not passed in'
+    })
+  });
 }
 
-function searchForURL(url, callback, marker = null){
+/**
+ * [searchForURL description]
+ * @param  {[type]} url    [description]
+ * @param  {[type]} marker [description]
+ * @return {[type]}        [description]
+ */
+function searchForURL(url, marker = null){
   return S3.listObjects({
     Bucket: bucketName,
     MaxKeys: 10,
@@ -28,19 +58,26 @@ function searchForURL(url, callback, marker = null){
   })
   .promise()
   .then(collectRedirects)
+  .then(checkForURLMatch)
   .then(function(results){
+    return Promise.resolve(result);
+  })
+  .catch(function(marker){
+    return searchForURL(url, marker.Key)
+  });
+}
+
+function checkForURLMatch(results){
+  return promises = new Promise(function(resolve, reject){
     results.forEach(function(e,i){
       if (url === e.WebsiteRedirectLocation) {
         console.log('found!');
-        callback(null, returnResults(e));
+        return resolve(e);
       }
     });
-    return results;
-  })
-  .then(function(results){
-    console.log('not found, returning last result');
-    results = results[results.length - 1];
-    return searchForURL(url, callback, results.Key);
+
+    var marker = results[results.length - 1];
+    return reject(marker);
   });
 }
 
@@ -66,18 +103,18 @@ function collectRedirects(response){
   });
 }
 
-function searchForKey(key, callback){
+function searchForKey(key){
 
-  S3.getObject({
+  return S3.getObject({
     Bucket: bucketName,
     Key: key
   })
   .promise()
   .then(function(data){
-    callback(null, returnResults(data))
+    return Promise.resolve(data);
   })
   .catch(function(err){
-    callback(null, returnErrorResp(err));
+    return Promise.reject(err);
   });
 
 }
