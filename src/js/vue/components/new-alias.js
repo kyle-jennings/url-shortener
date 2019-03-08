@@ -18,6 +18,11 @@ var NewAlias = Vue.component('newAlias', {
     }
   },
   methods: {
+    reset: function(){
+      this.url = null;
+      this.customAliasToggle = false;
+      this.customAlias = null;
+    },
     createdNew: function(response){
       if (response.target.readyState !== 4 || response.target.status !== 200) {
         return false;
@@ -25,6 +30,7 @@ var NewAlias = Vue.component('newAlias', {
       var response = JSON.parse(response.target.response);
       if(response.url) {
         this.newShortCode = response.url;
+        this.reset();
       }
     },
     submit: function(){

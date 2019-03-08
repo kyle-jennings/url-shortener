@@ -6,11 +6,68 @@ const AWS                  = require('aws-sdk')
 const S3                   = new AWS.S3();
 
 exports.handler = (event, context, callback) => {
-
-  let body        = JSON.parse(event.body);
-  let longUrl     = body.url || null;
-  let key         = body.key || null;
+  context.callbackWaitsForEmptyEventLoop = false;
   
+  let body = JSON.parse(event.body);
+  let url  = body.url || null;
+  let key  = body.key || null;
+
+  if (key) {
+    searchForKey(key, callback)
+  } else {
+    searchForURL(url, callback);
+  }
+
+}
+
+function searchForURL(url, callback, marker = null){
+  S3.listObjects({
+    Bucket: bucketName,
+    MaxKeys: 10,
+    Marker: marker,
+  })
+  .promise()
+  .then(collectRedirects)
+  .then(function(results){
+    results.forEach(function(e,i){
+      if (url === e.WebsiteRedirectLocation) {
+        console.log('found!');
+        callback(null, returnResults(e));
+      }
+    });
+    return results;
+  })
+  .then(function(results){
+    console.log('not found, returning last result');
+    results = results[results.length - 1];
+    return searchForURL(url, callback, results.Key);
+  });
+}
+
+
+
+function collectRedirects(response){
+
+  var promises = response.Contents.map(function(object){
+    return S3.getObject({
+      Key: object.Key,
+      Bucket: bucketName
+    })
+    .promise()
+    .then(function(result){
+      object.WebsiteRedirectLocation = result.WebsiteRedirectLocation;
+      return object;
+    });
+  });
+  
+  return Promise.all(promises)
+  .then(function(values) {
+    return Promise.resolve(values);
+  });
+}
+
+function searchForKey(key, callback){
+
   S3.getObject({
     Bucket: bucketName,
     Key: key
@@ -33,7 +90,7 @@ function returnErrorResp(err) {
     },
     body: JSON.stringify({
       status: 'fail',
-      results: err,
+      results: err
     })
   };
 }
