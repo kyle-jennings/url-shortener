@@ -21,7 +21,7 @@ exports.handler = (event, context, callback) => {
 }
 
 function searchForURL(url, callback, marker = null){
-  S3.listObjects({
+  return S3.listObjects({
     Bucket: bucketName,
     MaxKeys: 10,
     Marker: marker,
