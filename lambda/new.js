@@ -1,7 +1,7 @@
 'use strict'
 
 const url        = require('url');
-const bucketName = 'kjd-urls';
+const bucketName = process.env.BUCKET_NAME;
 const AWS        = require('aws-sdk');
 const S3         = new AWS.S3();
 const baseURL    = null;

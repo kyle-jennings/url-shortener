@@ -221,7 +221,7 @@ gulp.task('clean:templates', function() {
  */
 gulp.task('serve', ['watch'], function(){
   browserSync.init({
-    browser: ["google chrome", "firefox"],
+    browser: ["google chrome"],
     notify: false,
     files: ['./dist/index.html', './dist/assets/**/*'],
     port: 4000,

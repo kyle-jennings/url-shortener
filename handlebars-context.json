@@ -2,9 +2,9 @@
   "title" : "KJD - URL shortener",
   "css": "/assets/css/site.min.css",
   "js": "/assets/js/site.min.js",
-  "endpoint": "https://ns0jozzutk.execute-api.us-east-1.amazonaws.com/dev",
+  "endpoint": "https://milw1s2c3a.execute-api.us-east-1.amazonaws.com/staging",
   "s3Configs": {
-    "bucketName": "kjd-urls",
+    "bucketName": "go.epi.org",
     "region": "us-east-1",
     "base_url": null
   },

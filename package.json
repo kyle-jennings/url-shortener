@@ -8,7 +8,8 @@
     "lambda::new": "rm *.zip && cd lambda && zip -X -r ../new.zip .",
     "lambda::delete": "rm *.zip && cd lambda && zip -X -r ../delete.zip .",
     "lambda::edit": "rm *.zip && cd lambda && zip -X -r ../edit.zip .",
-    "lambda::search": "rm *.zip && cd lambda && zip -X -r ../search.zip ."
+    "lambda::search": "rm *.zip && cd lambda && zip -X -r ../search.zip .",
+    "test": "rm *.zip && cd lambda && zip -X -r ../new.zip ."
   },
   "dependencies": {
     "bootstrap": "^4.3.1",
