@@ -8,6 +8,9 @@ var ListItem = Vue.component('listItem', {
     }
   },
   computed: {
+    link: function(){
+      return false;
+    }
   },
   methods: {
     cancelEdit: function(){

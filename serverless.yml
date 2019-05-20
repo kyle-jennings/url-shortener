@@ -13,13 +13,6 @@ provider:
       Resource: "arn:${file(config.json):S3_PARTITION}:s3:::${file(config.json):BUCKET}/*"
 
 functions:
-  index:
-    handler: lambda/index.handle
-    events:
-      - http:
-          path: /index
-          method: any
-          cors: true
   new:
     handler: lambda/new.handle
     events:
@@ -27,13 +20,22 @@ functions:
           path: /new
           method: post
           cors: true
+          request:
+            parameters:
+              querystrings:
+                url: true
+                customAlias: false
   list:
     handler: lambda/list.handle
     events:
       - http:
           path: /list
-          method: post
+          method: get
           cors: true
+          request:
+            parameters:
+              querystrings:
+                marker: false
   search:
     handler: lambda/search.handle
     events:
@@ -41,6 +43,11 @@ functions:
           path: /search
           method: post
           cors: true
+          request:
+            parameters:
+              querystrings:
+                key: false
+                url: false
   delete:
     handler: lambda/delete.handle
     events:
@@ -48,6 +55,10 @@ functions:
           path: /delete
           method: post
           cors: true
+          request:
+            parameters:
+              querystrings:
+                key: true
   edit:
     handler: lambda/edit.handle
     events:
@@ -55,6 +66,11 @@ functions:
           path: /edit
           method: post
           cors: true
+          request:
+            parameters:
+              querystrings:
+                key: true
+                url: true
 
 resources:
   Resources:

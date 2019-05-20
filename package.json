@@ -4,12 +4,11 @@
   "author": "Kyle Jennings",
   "license": "MIT",
   "scripts": {
-    "lambda::list": "rm *.zip && cd lambda && zip -X -r ../list.zip .",
-    "lambda::new": "rm *.zip && cd lambda && zip -X -r ../new.zip .",
-    "lambda::delete": "rm *.zip && cd lambda && zip -X -r ../delete.zip .",
-    "lambda::edit": "rm *.zip && cd lambda && zip -X -r ../edit.zip .",
-    "lambda::search": "rm *.zip && cd lambda && zip -X -r ../search.zip .",
-    "test": "rm *.zip && cd lambda && zip -X -r ../new.zip ."
+    "lambda::list": "cd lambda && zip -X -r ../list.zip . && aws lambda update-function-code --function-name url-shortener--list --zip-file fileb://../list.zip",
+    "lambda::new": "cd lambda && zip -X -r ../new.zip . && aws lambda update-function-code --function-name url-shortener--new --zip-file fileb://../new.zip",
+    "lambda::delete": "cd lambda && zip -X -r ../delete.zip . && aws lambda update-function-code --function-name url-shortener--delete --zip-file fileb://../delete.zip",
+    "lambda::edit": "cd lambda && zip -X -r ../edit.zip . && aws lambda update-function-code --function-name url-shortener--edit --zip-file fileb://../edit.zip",
+    "lambda::search": "cd lambda && zip -X -r ../search.zip . && aws lambda update-function-code --function-name url-shortener--search --zip-file fileb://../search.zip"
   },
   "dependencies": {
     "bootstrap": "^4.3.1",
