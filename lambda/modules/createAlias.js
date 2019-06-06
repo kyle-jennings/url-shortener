@@ -6,12 +6,10 @@ const AWS        = require('aws-sdk');
 const S3         = new AWS.S3();
 const baseURL    = null;
 
-exports.handler = (event, context, callback) => {
-  context.callbackWaitsForEmptyEventLoop = false;
-  let body        = JSON.parse(event.body);
+module.exports.createAlias = (body, callback) => {
   let longUrl     = body.url || '';
   let customAlias = body.customAlias || null;
-
+  console.log('creating alias');
   validate(longUrl)
     .then(function () {
       if(customAlias) {

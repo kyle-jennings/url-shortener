@@ -5,12 +5,10 @@ const bucketName = process.env.BUCKET_NAME;
 const AWS        = require('aws-sdk')
 const S3         = new AWS.S3();
 
-exports.handler = (event, context, callback) => {
-  context.callbackWaitsForEmptyEventLoop = false;
-  
-  let body = JSON.parse(event.body);
+module.exports.searchForAlias = (body, callback) => {
   let url  = body.url || null;
   let key  = body.key || null;
+  console.log('searching for alias');
 
   if (key) {
     searchForKey(key)

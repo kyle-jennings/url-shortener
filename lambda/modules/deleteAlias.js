@@ -5,9 +5,9 @@ const bucketName = process.env.BUCKET_NAME;
 const AWS        = require('aws-sdk')
 const S3         = new AWS.S3();
 
-exports.handler = (event, context, callback) => {
-  let body = JSON.parse(event.body);
+module.exports.deleteAlias = (body, callback) => {
   let key  = body.key || null;
+  console.log('deleting alias');
 
   if(!key){
     callback(null, buildResponse(403, 'No key provided, can you try that again?') );

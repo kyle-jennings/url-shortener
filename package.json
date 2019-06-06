@@ -8,7 +8,8 @@
     "lambda::new": "cd lambda && zip -X -r ../new.zip . && aws lambda update-function-code --function-name url-shortener--new --zip-file fileb://../new.zip",
     "lambda::delete": "cd lambda && zip -X -r ../delete.zip . && aws lambda update-function-code --function-name url-shortener--delete --zip-file fileb://../delete.zip",
     "lambda::edit": "cd lambda && zip -X -r ../edit.zip . && aws lambda update-function-code --function-name url-shortener--edit --zip-file fileb://../edit.zip",
-    "lambda::search": "cd lambda && zip -X -r ../search.zip . && aws lambda update-function-code --function-name url-shortener--search --zip-file fileb://../search.zip"
+    "lambda::search": "cd lambda && zip -X -r ../search.zip . && aws lambda update-function-code --function-name url-shortener--search --zip-file fileb://../search.zip",
+    "lambda::index": "cd lambda && zip -X -r ../index.zip . && aws lambda update-function-code --function-name url-shortener --zip-file fileb://../index.zip"
   },
   "dependencies": {
     "bootstrap": "^4.3.1",

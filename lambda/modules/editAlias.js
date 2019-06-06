@@ -7,11 +7,10 @@ const AWS        = require('aws-sdk')
 const S3         = new AWS.S3()
 
 
-exports.handler = (event, context, callback) => {
-  context.callbackWaitsForEmptyEventLoop = false;
-  let body        = JSON.parse(event.body);
+module.exports.editAlias = (body, callback) => {
   let longUrl     = body.url || null;
   let key         = body.key || null;
+  console.log('editing alias');
 
   validate(longUrl)
   .then(function(){
