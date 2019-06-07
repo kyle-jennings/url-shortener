@@ -3,15 +3,12 @@
   "version": "1.0.0",
   "author": "Kyle Jennings",
   "license": "MIT",
-  "devDependencies": {
-    "gulp": "3.9.1"
-  },
   "scripts": {
     "install": "npm --prefix src install",
     "build": "src/node_modules/gulp/bin/gulp.js --gulpfile src/gulpfile.js --cwd src build",
     "watch": "src/node_modules/gulp/bin/gulp.js --gulpfile src/gulpfile.js --cwd src watch",
     "gulp": "src/node_modules/gulp/bin/gulp.js --gulpfile src/gulpfile.js --cwd src",
     "serve": "src/node_modules/gulp/bin/gulp.js --gulpfile src/gulpfile.js --cwd src serve",
-    "lambda-deploy": "cd lambda && zip -X -r ../deployments/index.zip . && aws lambda update-function-code --function-name url-shortener --zip-file fileb://../index.zip"
+    "lambda-deploy": "cd lambda && zip -X -r ../deployments/index.zip . && aws lambda update-function-code --function-name url-shortener --zip-file fileb://../deployments/index.zip"
   }
 }

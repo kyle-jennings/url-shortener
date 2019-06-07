@@ -25,7 +25,7 @@ exports.handler = (event, context, callback) => {
   } else if(path === '/new') {
     createAlias.createAlias(body, callback);
   } else if (path === '/list') {
-    listAliases.listAliases(body, callback);
+    listAliases.listAliases(body, callback, event);
   } else if (path === '/search') {
     searchForAlias.searchForAlias(body, callback);
   } 

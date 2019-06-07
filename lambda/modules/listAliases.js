@@ -5,7 +5,7 @@ const bucketName = process.env.BUCKET_NAME;
 const AWS        = require('aws-sdk')
 const S3         = new AWS.S3();
 
-module.exports.listAliases = (body, callback) => {
+module.exports.listAliases = (body, callback, event) => {
 
   let marker = null;
   if( typeof event.queryStringParameters !== "undefined" && event.queryStringParameters ) {
