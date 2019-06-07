@@ -6,11 +6,11 @@ const AWS        = require('aws-sdk');
 const S3         = new AWS.S3();
 const baseURL    = null;
 
-const createAlias = require('./modules/new.js');
-const editAlias = require('./modules/edit.js');
-const deleteAlias = require('./modules/delete.js');
-const searchForAlias = require('./modules/search.js');
-const listAliases = require('./modules/list.js');
+const createAlias = require('./modules/createAlias.js');
+const deleteAlias = require('./modules/deleteAlias.js');
+const editAlias = require('./modules/editAlias.js');
+const searchForAlias = require('./modules/searchForAlias.js');
+const listAliases = require('./modules/listAliases.js');
 
 exports.handler = (event, context, callback) => {
   context.callbackWaitsForEmptyEventLoop = false;
