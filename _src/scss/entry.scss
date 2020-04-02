@@ -1,0 +1,67 @@
+$fa-font-path: '/_admin/fonts';
+@import '@fortawesome/fontawesome-free/scss/fontawesome';
+@import '@fortawesome/fontawesome-free/scss/solid';
+@import '@fortawesome/fontawesome-free/scss/regular';
+
+// our variables
+
+// @import 'bulma-scss/utilities/functions';
+// @import 'settings/derived-variables';
+
+// bulmaswatch
+// @import 'bulmaswatch/darkly/variables';
+
+// Bulma
+// @import 'bulma-scss/bulma';
+@import 'bulma-scss/utilities/functions';
+@import 'bulma-scss/utilities/initial-variables';
+@import 'bulma-scss/utilities/derived-variables';
+@import 'bulma-scss/utilities/animations';
+@import 'bulma-scss/utilities/mixins';
+@import 'bulma-scss/utilities/controls';
+@import 'bulma-scss/base/minireset';
+@import 'bulma-scss/base/generic';
+@import 'bulma-scss/base/helpers';
+@import 'bulma-scss/elements/box';
+@import 'bulma-scss/elements/button';
+@import 'bulma-scss/elements/container';
+@import 'bulma-scss/elements/content';
+@import 'bulma-scss/elements/icon';
+@import 'bulma-scss/elements/image';
+@import 'bulma-scss/elements/notification';
+@import 'bulma-scss/elements/progress';
+@import 'bulma-scss/elements/table';
+@import 'bulma-scss/elements/tag';
+@import 'bulma-scss/elements/title';
+@import 'bulma-scss/elements/other';
+@import 'bulma-scss/components/breadcrumb';
+@import 'bulma-scss/components/card';
+@import 'bulma-scss/components/dropdown';
+@import 'bulma-scss/components/level';
+@import 'bulma-scss/components/list';
+@import 'bulma-scss/components/media';
+@import 'bulma-scss/components/menu';
+@import 'bulma-scss/components/message';
+@import 'bulma-scss/components/navbar';
+@import 'bulma-scss/components/pagination';
+@import 'bulma-scss/components/panel';
+@import 'bulma-scss/components/tabs';
+@import 'bulma-scss/grid/columns';
+@import 'bulma-scss/grid/tiles';
+@import 'bulma-scss/layout/hero';
+@import 'bulma-scss/layout/section';
+@import 'bulma-scss/layout/footer';
+@import 'bulma-scss/form/shared';
+@import 'bulma-scss/form/input-textarea';
+@import 'bulma-scss/form/checkbox-radio';
+@import 'bulma-scss/form/select';
+@import 'bulma-scss/form/file';
+@import 'bulma-scss/form/tools';
+
+
+// custom variables
+// @import 'settings/initial-variables';
+
+
+
+// @import './overrides/navbar';

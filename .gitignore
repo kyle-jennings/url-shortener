@@ -11,3 +11,4 @@ jspm_packages
 config.json
 project.txt
 static/index.html
+dist
