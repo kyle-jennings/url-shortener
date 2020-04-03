@@ -32,10 +32,10 @@ export default {
         this.firstCall = true;
         
         const response = JSON.parse(data.target.response);
-        this.marker = response.body.marker || null;
+        this.marker = response.marker || null;
   
-        if (!response.body.results) return;
-        response.body.results.forEach((x) => {
+        if (!response.results) return;
+        response.results.forEach((x) => {
           this.results.push(x);
         });
       }, 2000);

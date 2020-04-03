@@ -43,7 +43,7 @@ export default {
         return false;
       }
       const { response } = data.target;
-      this.toggleNotice(response.body);
+      this.toggleNotice(response);
       this.reset();
     },
     reset: function () {

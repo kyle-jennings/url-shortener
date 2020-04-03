@@ -46,47 +46,23 @@ function isPathFree(path) {
 }
 
 function buildResponse(statusCode, message, path = false ) {
-  const body = { message };
+  const body = { message, statusCode, path };
   body.status = statusCode === 200 ? 'success' : 'fail';
-  body.path = path;
 
   if (statusCode !== 200) {
     body.url = null;
     // eslint-disable-next-line prefer-promise-reject-errors
-    return Promise.reject(
-      {
-        body,
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-        },
-        message,
-        statusCode,
-      }
-    );
+    return Promise.reject(body);
   }
 
   return buildURL()
     .then((url) => {
       body.url = url;
-      return Promise.resolve({
-        body,
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-        },
-        message,
-        statusCode,
-      });
+      return Promise.resolve(body);
     })
     .catch((err) => {
       body.url = null;
-      return Promise.resolve({
-        body,
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-        },
-        message,
-        statusCode,
-      });
+      return Promise.resolve(body);
     });
 
 }

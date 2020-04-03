@@ -31,7 +31,7 @@ describe('list keys', () => {
       return createAlias(req)
         .then(
           (response) => {
-            const { path } = response.body;
+            const { path } = response;
             const req = {
               query: {
                 marker: null,
@@ -39,7 +39,7 @@ describe('list keys', () => {
             };
             return listAliases(req)
               .then((status) => {
-                theResults = status.body.results;
+                theResults = status.results;
                 if (path) deleteKey(path);
               })
               .catch((err) => {
@@ -70,7 +70,7 @@ describe('list keys', () => {
     beforeEach(function () {
       return listAliases(req)
         .then((status) => {
-          theResults = status.body.results;
+          theResults = status.results;
           if (createdPath) deleteKey(createdPath);
         })
         .catch((err) => {

@@ -12,14 +12,9 @@ function getMarker(results) {
 function returnResults(results) {
   return Promise.resolve({
     statusCode: 200,
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-    },
-    body: {
-      results: results,
-      count: results.length,
-      marker: results[results.length - 1].Key,
-    },
+    results: results,
+    count: results.length,
+    marker: results[results.length - 1].Key,
   });
 }
 

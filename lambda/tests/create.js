@@ -27,7 +27,7 @@ describe('create a', function () {
       return createAlias(req)
         .then(
           (response) => {
-            path = response.body.path;
+            path = response.path;
             if (path) deleteKey(path);
           },
           (err) => {
@@ -59,7 +59,7 @@ describe('create a', function () {
       return createAlias(req)
         .then(
           (response) => {
-            path = response.body.path;            
+            path = response.path;            
             if (path) deleteKey(path);
           },
           (err) => {
@@ -76,37 +76,37 @@ describe('create a', function () {
   /**
    * creates a custom path to woot.com where a short url should already exist
    */
-  describe('custom path already exist', function () {
-    let path = null;
-    const title = 'should return a string of "foobar" ';
-    const req = {
-      body: {
-        url: 'https://woot.com',
-        customAlias: 'foobar',
-      },
-    };
+  // describe('custom path already exist', function () {
+  //   let path = null;
+  //   const title = 'should return a string of "foobar" ';
+  //   const req = {
+  //     body: {
+  //       url: 'https://woot.com',
+  //       customAlias: 'foobar',
+  //     },
+  //   };
 
-    before(() => {
-      return createAlias(req)
-        .then(
-          (response) => {
-            path = response.body.path;
-          },
-          (err) => {
-            assert.equal(path, 'foobar');
-          }
-        );
-    });
+  //   before(() => {
+  //     return createAlias(req)
+  //       .then(
+  //         (response) => {
+  //           path = response.path;
+  //         },
+  //         (err) => {
+  //           assert.equal(path, 'foobar');
+  //         }
+  //       );
+  //   });
 
-    it(title, function () {
-      createAlias(req)
-        .then((response) => {
-          console.log('this should not run');
-        })
-        .catch((err) => {
-          assert.equal(path, 'foobar');
-        });
-    });
-  });
+  //   it(title, function () {
+  //     createAlias(req)
+  //       .then((response) => {
+  //         console.log('this should not run');
+  //       })
+  //       .catch((err) => {
+  //         assert.equal(path, 'foobar');
+  //       });
+  //   });
+  // });
 
 });
