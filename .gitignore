@@ -1,4 +1,5 @@
 # package
+.DS_Store
 node_modules
 jspm_packages
 

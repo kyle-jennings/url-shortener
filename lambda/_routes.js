@@ -67,8 +67,17 @@ router.route('/list')
       });
   });
 
-router.route('/getTotal')
+router.route('/get-total')
   .get((req, res) => {
+    countKeys()
+      .then((count) => {
+        res.end(JSON.stringify(count));
+      })
+      .catch((err) => {
+        res.end(JSON.stringify(err));
+      });
+  })
+  .post((req, res) => {
     countKeys()
       .then((count) => {
         res.end(JSON.stringify(count));

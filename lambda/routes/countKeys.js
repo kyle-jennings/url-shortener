@@ -1,10 +1,9 @@
 const BUCKET_NAME = process.env.BUCKET_NAME;
 const AWS = require('aws-sdk');
 const S3 = new AWS.S3();
-const MaxKeys = 10;
-let totalCount = 0;
+const MaxKeys = 1000;
 
-function getTotalCount(marker) {
+function getTotalCount(marker, totalCount) {
 
   return S3.listObjects({
     Bucket: BUCKET_NAME,
@@ -17,7 +16,7 @@ function getTotalCount(marker) {
       const results = response.Contents;
       const last = results[count - 1];
       totalCount += count;
-      if (count === MaxKeys) return getTotalCount(last.Key);
+      if (count === MaxKeys) return getTotalCount(last.Key, totalCount);
       else return Promise.resolve(totalCount);
     })
     .catch(err => Promise.reject(err));
@@ -25,5 +24,5 @@ function getTotalCount(marker) {
 
 
 module.exports = () => {
-  return getTotalCount(null);
+  return getTotalCount(null, 0);
 };
