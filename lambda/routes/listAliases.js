@@ -2,7 +2,6 @@ const AWS = require('aws-sdk');
 
 const { BUCKET_NAME } = process.env;
 const S3 = new AWS.S3();
-const MaxKeys = 10;
 
 function getMarker(results) {
   return results[results.length - 1].Key;
@@ -27,6 +26,11 @@ function returnError(err) {
     },
     body: err,
   });
+}
+
+
+function returnCustomAliases(results) {
+  return results.filter(x => x.Metadata.isCustomAlias === 'true');
 }
 
 
@@ -58,16 +62,21 @@ function addRedirectAndBucketName(response) {
 module.exports = (req) => {
 
   const { query } = req;
-  const { marker } = query;
+  const { marker, MaxKeys, filters } = query;
 
   return S3.listObjects({
     Bucket: BUCKET_NAME,
-    MaxKeys,
+    MaxKeys: MaxKeys || 100,
     Delimiter: '_admin',
     Marker: marker || null,
   })
     .promise()
     .then(addRedirectAndBucketName)
+    // .then((results) => {
+      // if (filters && filters.customAliases) return Promise.resolve(returnCustomAliases(results));
+      // return Promise.resolve(returnCustomAliases(results))
+      // return Promise.resolve(results);
+    // })
     .then(returnResults)
     .catch(returnError);
 }

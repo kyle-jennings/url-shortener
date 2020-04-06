@@ -110,11 +110,30 @@ function saveRedirect(redirect) {
     .then(() => Promise.resolve(redirect['Key']));
 }
 
-function buildRedirect(path, longUrl = false) {
+function buildRedirect(path, longUrl = false, isCustomAlias) {
+  const d = new Date();
+  const created = d.toLocaleDateString(
+      'fr-CA',
+      {
+        year: "numeric",
+        month: "2-digit",
+        day: "2-digit",
+      }
+    );
+
   const redirect = {
     Bucket: BUCKET_NAME,
     Key: path,
+    Metadata: {
+      created,
+      clicks: 0,
+    },
   };
+
+  if (isCustomAlias) {
+    redirect.Metadata.isCustomAlias = 'true';
+    redirect.Metadata.customAlias = isCustomAlias;
+  }
 
   if (longUrl) {
     redirect['WebsiteRedirectLocation'] = longUrl;
@@ -133,7 +152,7 @@ module.exports = (req) => {
     .then(() => (customAlias ? getCustomPath(customAlias) : getPath()))
     .catch(err => Promise.reject(err))
     .then((path) => {
-      const redirect = buildRedirect(path, longUrl);
+      const redirect = buildRedirect(path, longUrl, customAlias);
       return saveRedirect(redirect);
     })
     .catch(err => Promise.reject(err))
