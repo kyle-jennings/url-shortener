@@ -73,9 +73,9 @@ module.exports = (req) => {
     .promise()
     .then(addRedirectAndBucketName)
     // .then((results) => {
-      // if (filters && filters.customAliases) return Promise.resolve(returnCustomAliases(results));
-      // return Promise.resolve(returnCustomAliases(results))
-      // return Promise.resolve(results);
+    //   if (filters && filters.customAliases) return Promise.resolve(returnCustomAliases(results));
+    //   return Promise.resolve(returnCustomAliases(results))
+    //   return Promise.resolve(results);
     // })
     .then(returnResults)
     .catch(returnError);

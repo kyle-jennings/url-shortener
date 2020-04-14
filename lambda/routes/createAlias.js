@@ -124,15 +124,16 @@ function buildRedirect(path, longUrl = false, isCustomAlias) {
   const redirect = {
     Bucket: BUCKET_NAME,
     Key: path,
+    CacheControl: 'no-store',
     Metadata: {
       created,
-      clicks: 0,
+      clicks: '0',
     },
   };
 
   if (isCustomAlias) {
-    redirect.Metadata.isCustomAlias = 'true';
-    redirect.Metadata.customAlias = isCustomAlias;
+    redirect.Metadata['is-custom-alias'] = 'true';
+    redirect.Metadata['custom-alias'] = isCustomAlias;
   }
 
   if (longUrl) {

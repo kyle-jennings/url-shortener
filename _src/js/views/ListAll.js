@@ -46,7 +46,7 @@ export default {
 
         const response = JSON.parse(data.target.response);
         this.marker = response.marker || null;
-
+        console.log(resposne);
         if (!response.results) return;
         response.results.forEach((x) => {
           this.results.push(x);
@@ -69,7 +69,7 @@ export default {
           return false;
         }
         const { response } = data.target;
-
+        console.log(response);
         this.bucketTotal = response.total;
         this.results = response.firstBatch;
         this.pages = response.batches;
