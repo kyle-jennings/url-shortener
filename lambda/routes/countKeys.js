@@ -38,16 +38,16 @@ module.exports = () => {
       const args = {
         query: {
           MaxKeys: 100,
-        }
-      }
-     return listAliases(args)
-      .then((res) => {
-        results.firstBatch = res.results;
-        return Promise.resolve(results);
-      })
-      .catch((err) => {
-        return Promise.reject(results);
-      });
+        },
+      };
+      return listAliases(args)
+        .then((res) => {
+          results.firstBatch = res.results;
+          return Promise.resolve(results);
+        })
+        .catch((err) => {
+          return Promise.reject(results);
+        });
     })
     .catch(err => Promise.reject(err));
 };

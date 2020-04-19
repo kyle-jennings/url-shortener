@@ -106,25 +106,30 @@ function getPath() {
 }
 
 function saveRedirect(redirect) {
-  return S3.putObject(redirect).promise()
-    .then(() => Promise.resolve(redirect['Key']));
+
+
+  return S3.putObject(redirect)
+    .promise()
+    .then(() => Promise.resolve(redirect.Key))
+    .catch(err => Promise.reject(err));
 }
 
 function buildRedirect(path, longUrl = false, isCustomAlias) {
   const d = new Date();
   const created = d.toLocaleDateString(
-      'fr-CA',
-      {
-        year: "numeric",
-        month: "2-digit",
-        day: "2-digit",
-      }
-    );
+    'fr-CA',
+    {
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    }
+  );
 
   const redirect = {
     Bucket: BUCKET_NAME,
     Key: path,
     CacheControl: 'no-store',
+    Expires: 123456789,
     Metadata: {
       created,
       clicks: '0',
@@ -137,7 +142,7 @@ function buildRedirect(path, longUrl = false, isCustomAlias) {
   }
 
   if (longUrl) {
-    redirect['WebsiteRedirectLocation'] = longUrl;
+    redirect.WebsiteRedirectLocation = longUrl;
   }
 
   return redirect;

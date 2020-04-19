@@ -1,10 +1,10 @@
 /* eslint-disable no-undef */
-require('../tests/modules/setEnv');
+require('../modules/setEnv');
 
-const assert = require('assert');
-const createAlias = require('../routes/createAlias.js');
-const sites = require('../tests/modules/sites');
-const urls = require('../tests/modules/urls');
+const createAlias = require('../../routes/createAlias.js');
+const sites = require('../modules/sites');
+const urls = require('../modules/urls');
+
 
 function createRandomUrls () {
   return urls.map((x, i) => {
@@ -22,7 +22,6 @@ const promises = createRandomUrls().map((x) => {
       url: x,
     },
   };
-  console.log(req.body.url);
   createAlias(req)
     .then(response => Promise.resolve(response))
     .catch(response => Promise.reject(response));
