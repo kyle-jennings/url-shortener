@@ -67,7 +67,6 @@ function buildResponse(statusCode, message, path = false ) {
 
 }
 
-
 function generatePath(path = '') {
   const characters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
   const position = Math.floor(Math.random() * characters.length);
@@ -128,7 +127,8 @@ function buildRedirect(path, longUrl = false, isCustomAlias) {
   const redirect = {
     Bucket: BUCKET_NAME,
     Key: path,
-    CacheControl: 'no-store',
+    ContentType: 'text/html',
+    CacheControl: 'no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0',
     Expires: 123456789,
     Metadata: {
       created,
